@@ -62,7 +62,7 @@ class JumpChallenge(am.Challenge):
         self.coin_entities = [
             ec.Entity(self, [
                 ec.Position(pos + crowd.constants.JUMP_COIN_OFFSET),
-                CoinComponent(),
+                CoinComponent(gather_distance = crowd.constants.JUMP_GATHER_DISTANCE),
                 ec.Sprite(crowd.resource.image.coin)
             ])
 

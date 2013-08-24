@@ -63,9 +63,10 @@ class GatherChallenge(am.Challenge):
 
 
 class CoinComponent(ec.Component):
-    def __init__(self):
+    def __init__(self, gather_distance = crowd.constants.GATHER_DISTANCE):
         super(CoinComponent, self).__init__()
 
+        self.gather_distance = gather_distance
         self.register_handler(self.update)
 
     def update(self, component, entity, event, time_elapsed):
@@ -80,7 +81,7 @@ class CoinComponent(ec.Component):
 
                 delta = (position - plr_position).length
 
-                if delta < crowd.constants.GATHER_DISTANCE:
+                if delta < self.gather_distance:
                     entity.challenge.entities.remove(entity)
                     entity.challenge.mode.game.score += crowd.constants.GATHER_SCORE
 
