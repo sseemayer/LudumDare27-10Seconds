@@ -20,7 +20,10 @@ KEY_MAPPING = {
     pgl.K_LEFT: 'left',
 
     pgl.K_x: 'a',
-    pgl.K_c: 'b'
+    pgl.K_c: 'b',
+
+    pgl.K_j: 'a',   # Dvorak support
+    pgl.K_k: 'b'    # Dvorak support
 }
 
 
