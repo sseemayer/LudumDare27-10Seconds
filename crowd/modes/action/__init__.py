@@ -1,6 +1,7 @@
 import crowd.modes
 import crowd.resource
 import crowd.input
+import crowd.web
 
 import collections
 
@@ -18,24 +19,19 @@ class ActionMode(crowd.modes.GameMode):
         self.on_finish = None
 
     def get_input_sources(self, challenge):
-        #TODO Get live and cached input sources
-        print("TODO: properly get input sources for {0}".format(challenge.name))
 
-        live = crowd.input.LiveInputSource(self.game, 'semi', (255, 128, 0), challenge.name)
+        input_sources = crowd.web.get_challenge_replays(self.game, challenge.name)
 
-        log = [{}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {'left': True}, {}, {}, {}, {}, {}, {}, {}, {'right': True}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {'up': True}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {'down': True}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {'down': False}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {'up': False}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {'left': False}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {'right': False}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {'a': True}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {'b': True}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {'a': False, 'b': False}, {}, {}, {}, {}, {}, {'a': True}, {}, {}, {}, {}, {}, {}, {}, {}, {'b': True}, {'a': False}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {'a': True}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {'up': True}, {}, {}, {}, {'down': True}]
-        demo = crowd.input.CachedInputSource(self.game, 'ghost', (255, 255, 255), challenge.name, log)
-
+        live = crowd.input.LiveInputSource(self.game, self.game.player_name, self.game.player_color, challenge.name)
 
         def leave_live(live):
-            print("leave " + str(live))
-
-
-            print(live.updates)
+            crowd.web.post_challenge_replay(live)
 
         live.on_leave = leave_live
 
-        return [live, demo]
+        input_sources.append(live)
+
+        return input_sources
 
     def next_challenge(self):
 
