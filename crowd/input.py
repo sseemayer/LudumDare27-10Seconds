@@ -68,7 +68,7 @@ class LiveInputSource(InputSource):
 
     def next_frame(self):
 
-        state = self.game.input.state.keys
+        state = self.game.input.keys.copy()
 
         updates = { k: v for k, v in state.items() if v != self.last_state[k] }
         self.updates.append(updates)
