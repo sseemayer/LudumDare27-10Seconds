@@ -27,7 +27,8 @@ class ActionMode(crowd.modes.GameMode):
         def leave_live(live):
             crowd.web.post_challenge_replay(live)
 
-        live.on_leave = leave_live
+        if self.game.upload:
+            live.on_leave = leave_live
 
         input_sources.append(live)
 
@@ -85,6 +86,16 @@ class Challenge(object):
     def leave(self):
         for input_source in self.input_sources:
             input_source.leave()
+
+
+class ChallengePlayer(object):
+    def __init__(self, challenge, input_source):
+        self.challenge = challenge
+        self.input_source = input_source
+        self.input = None
+
+    def next_frame(self):
+        self.input = self.input_source.next_frame()
 
 class DebugChallenge(Challenge):
 

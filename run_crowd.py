@@ -1,14 +1,20 @@
 #!/usr/bin/env python
 import crowd
+import optparse
 
 if __name__ == '__main__':
-    game = crowd.Game()
 
+    parser = optparse.OptionParser()
+    parser.add_option('-u', '--no-upload', dest='upload', default=True, action='store_false', help="Don't upload replay data")
 
-    import crowd.modes.action
+    opt, args = parser.parse_args()
+
+    game = crowd.Game(upload=opt.upload)
+
+    import crowd.modes.action.challenges.gather
 
     challenges = [
-        (crowd.modes.action.DebugChallenge,)
+        (crowd.modes.action.challenges.gather.GatherChallenge,)
     ]
 
     game.mode = crowd.modes.action.ActionMode(game, challenges)

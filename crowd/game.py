@@ -9,10 +9,12 @@ import crowd.input
 
 class Game(object):
 
-    def __init__(self):
+    def __init__(self, upload=True):
         pygame.init()
 
-        self.screen = pygame.display.set_mode(crowd.constants.SCREEN_DIMENSIONS)
+        self.upload = upload
+
+        self.screen = pygame.display.set_mode(crowd.constants.SCREEN_SIZE)
 
         self.running = False
         self.mode = None

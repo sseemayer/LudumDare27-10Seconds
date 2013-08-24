@@ -1,7 +1,7 @@
 import pygame.locals as pgl
 
 GAME_NAME = 'Crowd'
-SCREEN_DIMENSIONS = (640, 480)
+SCREEN_SIZE = (640, 480)
 TARGET_FPS = 30
 
 NOMODE_BACKGROUND = (0, 0, 128)
@@ -39,3 +39,6 @@ RES_SOUNDS = {
 RES_FONTS = {
     'default': ('data/fonts/Audiowide-Regular.ttf', 12)
 }
+
+
+GATHER_PLAYER_SPEED = 1
