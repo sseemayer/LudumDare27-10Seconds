@@ -12,29 +12,53 @@ class ActionMode(crowd.modes.GameMode):
         self.queue = collections.deque(queue)
         self.challenge = None
 
-        self.next_game()
+        self.next_challenge()
 
+
+        self.on_finish = None
 
     def get_input_sources(self, challenge):
         #TODO Get live and cached input sources
         print("TODO: properly get input sources for {0}".format(challenge.name))
 
-        live = crowd.input.LiveInputSource(self.game, 'semi', (255, 128, 0))
+        live = crowd.input.LiveInputSource(self.game, 'semi', (255, 128, 0), challenge.name)
 
-        return [live]
+        log = [{}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {'left': True}, {}, {}, {}, {}, {}, {}, {}, {'right': True}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {'up': True}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {'down': True}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {'down': False}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {'up': False}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {'left': False}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {'right': False}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {'a': True}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {'b': True}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {'a': False, 'b': False}, {}, {}, {}, {}, {}, {'a': True}, {}, {}, {}, {}, {}, {}, {}, {}, {'b': True}, {'a': False}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {'a': True}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {'up': True}, {}, {}, {}, {'down': True}]
+        demo = crowd.input.CachedInputSource(self.game, 'ghost', (255, 255, 255), challenge.name, log)
 
-    def next_game(self):
+
+        def leave_live(live):
+            print("leave " + str(live))
+
+
+            print(live.updates)
+
+        live.on_leave = leave_live
+
+        return [live, demo]
+
+    def next_challenge(self):
 
         if self.challenge:
             self.challenge.leave()
 
-        challenge_args = self.queue.popleft()
-        challenge, extra_args = challenge_args[0], challenge_args[1:]
 
-        input_sources = self.get_input_sources(challenge)
+        if self.queue:
 
-        self.challenge = challenge(self, input_sources, *extra_args)
-        self.challenge.enter()
+            challenge_args = self.queue.popleft()
+            challenge, extra_args = challenge_args[0], challenge_args[1:]
+
+            input_sources = self.get_input_sources(challenge)
+
+            self.challenge = challenge(self, input_sources, *extra_args)
+            self.challenge.enter()
+
+        else:
+
+            self.challenge = None
+
+            if self.on_finish:
+                self.on_finish()
 
     def update(self, time_elapsed):
         if self.challenge:
@@ -63,7 +87,8 @@ class Challenge(object):
         pass
 
     def leave(self):
-        pass
+        for input_source in self.input_sources:
+            input_source.leave()
 
 class DebugChallenge(Challenge):
 
@@ -78,13 +103,21 @@ class DebugChallenge(Challenge):
 
     def update(self, time_elapsed):
 
+
+        states = [(ins, ins.next_frame()) for ins in self.input_sources]
+
         def list_buttons(state):
             return ", ".join( k for k, v in state.keys.items() if v )
 
         self.blah = [
-            (ins.player + ": " + list_buttons(ins.next_frame()) , ins.color)
-            for ins in self.input_sources
+            (ins.player + ": " + list_buttons(state) , ins.color)
+            for ins, state in states
         ]
+
+
+        for ins, state in states:
+            if state.a and state.b and state.up and state.down:
+                self.mode.next_challenge()
 
     def render(self):
 

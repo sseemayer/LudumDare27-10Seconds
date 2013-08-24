@@ -43,37 +43,43 @@ class InputState(object):
             raise AttributeError(name)
 
 class InputSource(object):
-    def __init__(self, game, player, color, is_live):
+    def __init__(self, game, player, color, challenge, is_live, on_leave=None):
         self.game = game
         self.player = player
         self.color = color
+        self.challenge = challenge
         self.is_live = is_live
+        self.on_leave = on_leave
 
     def next_frame(self):
         raise NotImplemented()
 
+    def leave(self):
+        if self.on_leave:
+            self.on_leave(self)
+
 class LiveInputSource(InputSource):
 
-    def __init__(self, game, player, color):
-        super(LiveInputSource, self).__init__(game, player, color, True)
-        self.last_state = self.game.input.state
+    def __init__(self, game, player, color, challenge, on_leave=None):
+        super(LiveInputSource, self).__init__(game, player, color, challenge, True, on_leave)
+        self.last_state = {k: False for k in crowd.constants.VALID_ACTIONS}
 
         self.updates = []
 
     def next_frame(self):
 
-        state = self.game.input.state
+        state = self.game.input.state.keys
 
-        updates = { k: v for k, v in state.keys.items() if v != self.last_state.keys[k] }
+        updates = { k: v for k, v in state.items() if v != self.last_state[k] }
         self.updates.append(updates)
 
         self.last_state = state
 
-        return state
+        return InputState(state, True)
 
 class CachedInputSource(InputSource):
-    def __init__(self, game, player, color, cache):
-        super(CachedInputSource, self).__init__(game, player, color, False)
+    def __init__(self, game, player, color, challenge, cache, on_leave=None):
+        super(CachedInputSource, self).__init__(game, player, color, challenge, False, on_leave)
         self.cache = collections.deque(cache)
         self.state = {k: False for k in crowd.constants.VALID_ACTIONS}
 
@@ -82,5 +88,5 @@ class CachedInputSource(InputSource):
         update = self.cache.popleft()
         self.state.update(update)
 
-        return self.state
+        return InputState(self.state, False)
 
