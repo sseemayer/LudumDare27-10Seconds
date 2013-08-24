@@ -88,7 +88,7 @@ class DebugChallenge(Challenge):
 
     def render(self):
 
-        self.mode.game.screen.fill((128, 128, 128))
+        self.mode.game.screen.fill((64, 64, 64))
 
         for i, b in enumerate(self.blah):
             txt, clr = b
