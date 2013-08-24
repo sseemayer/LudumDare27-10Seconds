@@ -16,3 +16,21 @@ KEY_MAPPING = {
     pgl.K_x: 'a',
     pgl.K_c: 'b'
 }
+
+
+RES_IMAGES = {
+
+}
+
+
+RES_MUSIC = {
+
+}
+
+RES_SOUNDS = {
+
+}
+
+RES_FONTS = {
+    'default': ('data/fonts/Audiowide-Regular.ttf', 12)
+}

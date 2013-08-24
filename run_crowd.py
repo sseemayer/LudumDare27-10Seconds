@@ -2,4 +2,15 @@
 import crowd
 
 if __name__ == '__main__':
-    crowd.Game().loop()
+    game = crowd.Game()
+
+
+    import crowd.modes.action
+
+    challenges = [
+        (crowd.modes.action.DebugChallenge,)
+    ]
+
+    game.mode = crowd.modes.action.ActionMode(game, challenges)
+
+    game.loop()

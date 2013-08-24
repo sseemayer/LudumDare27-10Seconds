@@ -40,9 +40,7 @@ class InputState(object):
         if name in self.keys:
             return self.keys[name]
         else:
-            raise AttributeError()
-
-
+            raise AttributeError(name)
 
 class InputSource(object):
     def __init__(self, game, player, color, is_live):
@@ -57,7 +55,7 @@ class InputSource(object):
 class LiveInputSource(InputSource):
 
     def __init__(self, game, player, color):
-        super(InputSource, self).__init__(self, game, player, color, True)
+        super(LiveInputSource, self).__init__(game, player, color, True)
         self.last_state = self.game.input.state
 
         self.updates = []
@@ -66,7 +64,7 @@ class LiveInputSource(InputSource):
 
         state = self.game.input.state
 
-        updates = { k: v for k, v in state.items() if v != last_state[k] }
+        updates = { k: v for k, v in state.keys.items() if v != self.last_state.keys[k] }
         self.updates.append(updates)
 
         self.last_state = state
@@ -75,7 +73,7 @@ class LiveInputSource(InputSource):
 
 class CachedInputSource(InputSource):
     def __init__(self, game, player, color, cache):
-        super(InputSource, self).__init__(self, game, player, color, False)
+        super(CachedInputSource, self).__init__(game, player, color, False)
         self.cache = collections.deque(cache)
         self.state = {k: False for k in crowd.constants.VALID_ACTIONS}
 
