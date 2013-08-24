@@ -50,6 +50,12 @@ class Physics(Component):
 
         entity.handle('set_velocity', velocity)
 
-        entity.handle('set_position', position + velocity * time_elapsed)
+        new_position = position + velocity * time_elapsed
+        npos = entity.handle('try_position', new_position)
+
+        if npos:
+            new_position = npos
+
+        entity.handle('set_position', new_position)
 
 

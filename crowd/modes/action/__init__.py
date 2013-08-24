@@ -50,6 +50,8 @@ class ActionMode(crowd.modes.GameMode):
             input_sources = self.get_input_sources(challenge)
 
             self.challenge = challenge(self, input_sources, *extra_args)
+
+            print("New challenge: {0}".format(self.challenge))
             self.challenge.enter()
 
         else:

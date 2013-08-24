@@ -1,4 +1,5 @@
 import pygame.locals as pgl
+import py2d.Math
 
 GAME_NAME = 'Crowd'
 SCREEN_SIZE = (640, 480)
@@ -40,7 +41,7 @@ RES_SOUNDS = {
 
 RES_FONTS = {
     'default': ('data/fonts/Audiowide-Regular.ttf', 12),
-    'big_gui': ('data/fonts/PressStart2P-Regular.ttf', 48),
+    'big_gui': ('data/fonts/PressStart2P-Regular.ttf', 72),
     'med_gui': ('data/fonts/PressStart2P-Regular.ttf', 36)
 }
 
@@ -50,3 +51,15 @@ GATHER_DISTANCE = 16
 GATHER_SCORE = 10
 GATHER_COINS_X = 20
 GATHER_COINS_Y = 15
+
+JUMP_COIN_OFFSET = py2d.Math.Vector(0, -20)
+JUMP_GRAVITY = 0.003
+JUMP_STRENGTH = 2
+JUMP_PLAYER_SPEED = 0.01
+JUMP_PLAYER_SPEED_DECAY = 0.6
+
+JUMP_PLATFORMS_PER_PHASE = 10
+
+JUMP_PLATFORM_AMPLITUDE = 300
+JUMP_PLATFORM_STEP = 30
+JUMP_PLATFORM_WIDTH = 60
