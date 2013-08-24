@@ -32,12 +32,18 @@ class GatherChallenge(am.Challenge):
 
         self.coin_entities = [
             ec.Entity(self, [
-                ec.Position(startpos.clone())
+                ec.Position(py2d.Math.Vector(
+                    x * crowd.constants.SCREEN_SIZE[0] / (crowd.constants.GATHER_COINS_X),
+                    y * crowd.constants.SCREEN_SIZE[1] / (crowd.constants.GATHER_COINS_Y)
+                )),
+                CoinComponent(),
+                ec.Sprite(crowd.resource.image.coin)
             ])
-            for _ in range(100)
+            for x in range(1, crowd.constants.GATHER_COINS_X)
+            for y in range(1, crowd.constants.GATHER_COINS_Y)
         ]
 
-        self.entities = self.player_entities + self.coin_entities
+        self.entities = self.coin_entities + self.player_entities
 
     def update(self, time_elapsed):
         super(GatherChallenge, self).update(time_elapsed)
@@ -54,4 +60,27 @@ class GatherChallenge(am.Challenge):
 
         for entity in self.entities:
             entity.render()
+
+
+class CoinComponent(ec.Component):
+    def __init__(self):
+        super(CoinComponent, self).__init__()
+
+        self.register_handler(self.update)
+
+    def update(self, component, entity, event, time_elapsed):
+
+        position = entity.handle('get_position')
+
+        for player in entity.challenge.player_entities:
+            owner = player.handle('get_owner')
+
+            if owner.input_source.is_live:
+                plr_position = player.handle('get_position')
+
+                delta = (position - plr_position).length
+
+                if delta < crowd.constants.GATHER_DISTANCE:
+                    entity.challenge.entities.remove(entity)
+                    entity.challenge.mode.game.score += crowd.constants.GATHER_SCORE
 

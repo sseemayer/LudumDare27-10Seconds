@@ -24,7 +24,8 @@ KEY_MAPPING = {
 
 
 RES_IMAGES = {
-    'cursor': 'data/images/cursor.png'
+    'cursor': 'data/images/cursor.png',
+    'coin': 'data/images/coin.png'
 
 }
 
@@ -40,7 +41,12 @@ RES_SOUNDS = {
 RES_FONTS = {
     'default': ('data/fonts/Audiowide-Regular.ttf', 12),
     'big_gui': ('data/fonts/PressStart2P-Regular.ttf', 48)
+    'med_gui': ('data/fonts/PressStart2P-Regular.ttf', 36)
 }
 
 
 GATHER_PLAYER_SPEED = 0.0001
+GATHER_DISTANCE = 16
+GATHER_SCORE = 10
+GATHER_COINS_X = 20
+GATHER_COINS_Y = 15
