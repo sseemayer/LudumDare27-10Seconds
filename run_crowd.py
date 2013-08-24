@@ -1,6 +1,7 @@
 #!/usr/bin/env python
 import crowd
 import optparse
+import sys
 
 if __name__ == '__main__':
 
@@ -18,5 +19,6 @@ if __name__ == '__main__':
     ]
 
     game.mode = crowd.modes.action.ActionMode(game, challenges)
+    game.mode.on_finish = lambda: sys.exit()
 
     game.loop()

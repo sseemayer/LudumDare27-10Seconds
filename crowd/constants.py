@@ -24,6 +24,7 @@ KEY_MAPPING = {
 
 
 RES_IMAGES = {
+    'cursor': 'data/images/cursor.png'
 
 }
 
@@ -37,8 +38,9 @@ RES_SOUNDS = {
 }
 
 RES_FONTS = {
-    'default': ('data/fonts/Audiowide-Regular.ttf', 12)
+    'default': ('data/fonts/Audiowide-Regular.ttf', 12),
+    'big_gui': ('data/fonts/PressStart2P-Regular.ttf', 48)
 }
 
 
-GATHER_PLAYER_SPEED = 1
+GATHER_PLAYER_SPEED = 0.0001

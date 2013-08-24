@@ -24,8 +24,8 @@ class Game(object):
         self.tick = 0
         self.total_time = 0
 
-        self.player_name = 'jdoe'
-        self.player_color = (255, 0, 0)
+        self.player_name = 'semi'
+        self.player_color = (255, 128, 0)
 
         pygame.display.set_caption(crowd.constants.GAME_NAME)
 

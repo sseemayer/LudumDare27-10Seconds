@@ -4,12 +4,13 @@ import py2d.Math
 
 class Movement(Component):
 
-    def __init__(self, speed=1, horizontal=True, vertical=True):
+    def __init__(self, speed=1, horizontal=True, vertical=True, use_physics=True):
         super(Movement, self).__init__()
 
         self.speed = speed
         self.horizontal = horizontal
         self.vertical = vertical
+        self.use_physics = use_physics
 
         self.register_handler(self.update)
 
@@ -34,6 +35,11 @@ class Movement(Component):
             if owner.input.down:
                 dx.y += 1
 
-        entity.handle('set_position', position + dx.clamp() * self.speed)
+
+        if self.use_physics:
+            entity.handle('set_acceleration', dx.clamp() * self.speed)
+
+        else:
+            entity.handle('set_position', position + dx.clamp() * self.speed)
 
 

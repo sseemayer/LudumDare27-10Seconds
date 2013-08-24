@@ -5,6 +5,8 @@ import crowd.web
 
 import collections
 
+from crowd.modes.action.challenge import Challenge, ChallengePlayer
+
 class ActionMode(crowd.modes.GameMode):
 
     def __init__(self, game, queue):
@@ -64,75 +66,4 @@ class ActionMode(crowd.modes.GameMode):
     def render(self):
         if self.challenge:
             self.challenge.render()
-
-class Challenge(object):
-
-    name = 'untitled'
-
-    def __init__(self, mode, input_sources):
-
-        self.mode = mode
-        self.input_sources = input_sources
-
-    def update(self, time_elapsed):
-        pass
-
-    def render(self):
-        pass
-
-    def enter(self):
-        pass
-
-    def leave(self):
-        for input_source in self.input_sources:
-            input_source.leave()
-
-
-class ChallengePlayer(object):
-    def __init__(self, challenge, input_source):
-        self.challenge = challenge
-        self.input_source = input_source
-        self.input = None
-
-    def next_frame(self):
-        self.input = self.input_source.next_frame()
-
-class DebugChallenge(Challenge):
-
-    name = 'debug'
-
-    def __init__(self, mode, input_sources):
-        super(DebugChallenge, self).__init__(mode, input_sources)
-
-        self.font = crowd.resource.font.default
-
-        self.blah = []
-
-    def update(self, time_elapsed):
-
-
-        states = [(ins, ins.next_frame()) for ins in self.input_sources]
-
-        def list_buttons(state):
-            return ", ".join( k for k, v in state.keys.items() if v )
-
-        self.blah = [
-            (ins.player + ": " + list_buttons(state) , ins.color)
-            for ins, state in states
-        ]
-
-
-        for ins, state in states:
-            if state.a and state.b and state.up and state.down:
-                self.mode.next_challenge()
-
-    def render(self):
-
-        self.mode.game.screen.fill((64, 64, 64))
-
-        for i, b in enumerate(self.blah):
-            txt, clr = b
-
-            fr = self.font.render(txt, True, clr)
-            self.mode.game.screen.blit(fr, (0,i * 20))
 

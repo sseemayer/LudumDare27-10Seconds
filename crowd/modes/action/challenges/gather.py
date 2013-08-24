@@ -1,6 +1,7 @@
 import crowd.constants
 import crowd.modes.action as am
 import crowd.entity_component as ec
+import crowd.resource
 
 import py2d.Math
 
@@ -21,7 +22,9 @@ class GatherChallenge(am.Challenge):
             ec.Entity( self, [
                 ec.Position(startpos.clone()),
                 ec.Movement(speed=crowd.constants.GATHER_PLAYER_SPEED),
-                ec.Owner(player)
+                ec.Physics(),
+                ec.Owner(player),
+                ec.Sprite(crowd.resource.image.cursor)
             ])
 
             for player in self.players
@@ -48,7 +51,6 @@ class GatherChallenge(am.Challenge):
     def render(self):
         super(GatherChallenge, self).render()
 
-        self.mode.game.screen.fill((0,0,0))
 
         for entity in self.entities:
             entity.render()

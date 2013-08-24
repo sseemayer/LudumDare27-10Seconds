@@ -84,9 +84,9 @@ class CachedInputSource(InputSource):
         self.state = {k: False for k in crowd.constants.VALID_ACTIONS}
 
     def next_frame(self):
-
-        update = self.cache.popleft()
-        self.state.update(update)
+        if self.cache:
+            update = self.cache.popleft()
+            self.state.update(update)
 
         return InputState(self.state, False)
 
