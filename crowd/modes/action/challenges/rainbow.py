@@ -32,7 +32,7 @@ class RainbowChallenge(Challenge):
             ec.Entity( self, [
                 ec.Position(startpos.clone()),
                 ec.Movement(speed=crowd.constants.GATHER_PLAYER_SPEED),
-                ec.Physics(),
+                ec.Physics(decay_factor=crowd.constants.GATHER_PLAYER_SPEED_DECAY),
                 ec.Owner(player),
                 ec.Sprite(crowd.resource.image.cursor),
                 TakeColor()

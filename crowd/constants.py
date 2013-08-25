@@ -51,11 +51,11 @@ RES_IMAGES = {
 
 
 RES_MUSIC = {
-    'main': 'data/audio/drumloop.ogg'
+    'main': 'data/audio/music.ogg'
 }
 
 RES_SOUNDS = {
-    'coin': ('data/audio/coin.wav', 0.5),
+    'coin': ('data/audio/coin.wav', 0.2),
     'explosion': ('data/audio/explosion.wav', 0.7),
     'jump': ('data/audio/jump.wav', 0.2),
     'select': ('data/audio/select.wav', 0.6),
@@ -69,7 +69,8 @@ RES_FONTS = {
 }
 
 
-GATHER_PLAYER_SPEED = 0.0002
+GATHER_PLAYER_SPEED = 0.001
+GATHER_PLAYER_SPEED_DECAY = 0.8
 GATHER_DISTANCE = 16
 GATHER_SCORE = 10
 GATHER_COINS_X = 20
