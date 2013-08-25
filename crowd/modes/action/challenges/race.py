@@ -1,5 +1,5 @@
 import crowd.constants
-import crowd.modes.action as am
+from crowd.modes.action.challenge import Challenge, ChallengePlayer
 import crowd.entity_component as ec
 import crowd.resource
 
@@ -13,7 +13,7 @@ import py2d.Math
 import py2d.SVG
 import pygame
 
-class RaceChallenge(am.Challenge):
+class RaceChallenge(Challenge):
     name = 'race'
     modal_msg = 'Ready, set, go!'
 
@@ -32,7 +32,7 @@ class RaceChallenge(am.Challenge):
         self.camera = py2d.Math.Vector(*crowd.constants.SCREEN_SIZE) / -2 + startpos
 
         self.players = [
-            am.ChallengePlayer(self, isrc)
+            ChallengePlayer(self, isrc)
             for isrc in input_sources
         ]
 

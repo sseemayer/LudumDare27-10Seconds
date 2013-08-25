@@ -1,11 +1,11 @@
 import crowd.constants
-import crowd.modes.action as am
+from crowd.modes.action.challenge import Challenge, ChallengePlayer
 import crowd.entity_component as ec
 import crowd.resource
 
 import py2d.Math
 
-class GatherChallenge(am.Challenge):
+class GatherChallenge(Challenge):
     name = 'gather'
     modal_msg = 'Grab all you can!'
 
@@ -15,7 +15,7 @@ class GatherChallenge(am.Challenge):
         startpos = py2d.Math.Vector(*crowd.constants.SCREEN_SIZE) / 2
 
         self.players = [
-            am.ChallengePlayer(self, isrc)
+            ChallengePlayer(self, isrc)
             for isrc in input_sources
         ]
 

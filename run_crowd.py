@@ -25,6 +25,9 @@ if __name__ == '__main__':
     ]
 
     game.mode = crowd.modes.action.ActionMode(game, challenges)
+
+    #import crowd.modes.menu
+    #game.mode = crowd.modes.menu.MenuMode(game)
     game.mode.on_finish = lambda: sys.exit()
 
     game.loop()

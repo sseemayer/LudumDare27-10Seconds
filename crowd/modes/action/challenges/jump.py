@@ -1,5 +1,5 @@
 import crowd.constants
-import crowd.modes.action as am
+from crowd.modes.action.challenge import Challenge, ChallengePlayer
 import crowd.entity_component as ec
 import crowd.resource
 
@@ -10,7 +10,7 @@ import math
 import py2d.Math
 import pygame
 
-class JumpChallenge(am.Challenge):
+class JumpChallenge(Challenge):
     name = 'jump'
     modal_msg = 'Up, up and away!'
 
@@ -22,7 +22,7 @@ class JumpChallenge(am.Challenge):
         self.camera = py2d.Math.Vector(*crowd.constants.SCREEN_SIZE) / -2
 
         self.players = [
-            am.ChallengePlayer(self, isrc)
+            ChallengePlayer(self, isrc)
             for isrc in input_sources
         ]
 

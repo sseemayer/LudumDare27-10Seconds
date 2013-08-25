@@ -30,6 +30,8 @@ KEY_MAPPING = {
 
 
 RES_IMAGES = {
+    'logo': 'data/images/logo.png',
+
     'cursor': 'data/images/cursor.png',
     'pointer': 'data/images/pointer.png',
     'coin': 'data/images/coin.png'
