@@ -136,17 +136,17 @@ class Projectile(ec.Component):
 
         position += self.direction
 
-        if owner.input_source.is_live:
 
-            for target in entity.challenge.target_entities:
-                dist = (target.handle('get_position') - position).length
-                if dist < crowd.constants.SHOOTER_BULLET_DIST:
+        for target in entity.challenge.target_entities:
+            dist = (target.handle('get_position') - position).length
+            if dist < crowd.constants.SHOOTER_BULLET_DIST:
+
+                entity.challenge.entities.remove(entity)
+
+                if owner.input_source.is_live:
                     crowd.resource.sound.explosion.play()
-
                     entity.challenge.target_entities.remove(target)
                     entity.challenge.entities.remove(target)
-                    entity.challenge.entities.remove(entity)
-
                     entity.challenge.mode.game.score += crowd.constants.SHOOTER_TARGET_SCORE
 
 
