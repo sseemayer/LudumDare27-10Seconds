@@ -28,9 +28,6 @@ class RaceChallenge(am.Challenge):
         self.racetrack_inner = self.racetrack_coords['track-inner']
         self.racetrack_mid = self.racetrack_coords['track-mid']
 
-
-        print(self.racetrack_outer)
-
         startpos = self.racetrack_mid[0].points[52]
 
         self.camera = py2d.Math.Vector(*crowd.constants.SCREEN_SIZE) / -2 + startpos
