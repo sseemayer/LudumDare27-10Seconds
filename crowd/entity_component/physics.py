@@ -15,6 +15,8 @@ class Physics(Component):
         else:
             self.velocity = py2d.Math.Vector(0, 0)
 
+        self.acceleration = py2d.Math.Vector(0, 0)
+
         self.register_handler(self.update)
 
         self.register_handler(self.get_velocity)

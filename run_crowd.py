@@ -12,11 +12,13 @@ if __name__ == '__main__':
 
     game = crowd.Game(upload=opt.upload)
 
+    import crowd.modes.action.challenges.cave
     import crowd.modes.action.challenges.race
     import crowd.modes.action.challenges.jump
     import crowd.modes.action.challenges.gather
 
     challenges = [
+        (crowd.modes.action.challenges.cave.CaveChallenge,),
         (crowd.modes.action.challenges.race.RaceChallenge,),
         (crowd.modes.action.challenges.jump.JumpChallenge,),
         (crowd.modes.action.challenges.gather.GatherChallenge,)
