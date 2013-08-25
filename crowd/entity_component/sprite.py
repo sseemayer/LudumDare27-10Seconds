@@ -10,10 +10,11 @@ import py2d.Math
 
 class Sprite(Component):
 
-    def __init__(self, sprite):
+    def __init__(self, sprite, hide_owner=False):
         super(Sprite, self).__init__()
         self.sprite = sprite
         self.font = crowd.resource.font.default
+        self.hide_owner = hide_owner
 
         self.register_handler(self.get_sprite)
         self.register_handler(self.set_sprite)
@@ -45,8 +46,9 @@ class Sprite(Component):
             sprite = sprite.copy()
             sprite.fill(owner.input_source.color, special_flags=BLEND_RGB_MULT)
 
-            owner_name = self.font.render(owner.input_source.player, True, owner.input_source.color)
-            entity.challenge.mode.game.screen.blit(owner_name, (camera_pos + size/2).as_tuple())
+            if not self.hide_owner:
+                owner_name = self.font.render(owner.input_source.player, True, owner.input_source.color)
+                entity.challenge.mode.game.screen.blit(owner_name, (camera_pos + size/2).as_tuple())
 
         entity.challenge.mode.game.screen.blit(sprite, camera_pos.as_tuple())
 

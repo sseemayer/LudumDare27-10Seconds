@@ -45,8 +45,10 @@ RES_IMAGES = {
     'pointer': 'data/images/pointer.png',
     'coin': 'data/images/coin.png',
 
-    'rainbow': 'data/images/rainbow.png'
+    'rainbow': 'data/images/rainbow.png',
 
+    'alien': 'data/images/alien.png',
+    'projectile': 'data/images/projectile.png'
 }
 
 
@@ -59,6 +61,7 @@ RES_SOUNDS = {
     'explosion': ('data/audio/explosion.wav', 0.7),
     'jump': ('data/audio/jump.wav', 0.2),
     'select': ('data/audio/select.wav', 0.6),
+    'shoot': ('data/audio/shoot.wav', 0.6),
 }
 
 RES_FONTS = {
@@ -99,3 +102,15 @@ CAVE_SCALING = 2
 CAVE_SPEED = 0.5
 CAVE_BOOST_SPEED = 0.008
 CAVE_GRAVITY = 0.008
+
+SHOOTER_PLAYER_SPEED = 0.005
+SHOOTER_PLAYER_SPEED_DECAY = 0.7
+SHOOTER_PLAYER_BULLET_DISTANCE = 5
+SHOOTER_PLAYER_FIRE_RATE=200
+SHOOTER_BULLET_LIFE=1000
+SHOOTER_PLAYER_BULLET_SPEED=py2d.Math.Vector(0, -20)
+SHOOTER_BULLET_DIST=10
+SHOOTER_TARGET_SCORE=10
+
+SHOOTER_TARGETS_X = 20
+SHOOTER_TARGETS_Y = 8

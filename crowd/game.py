@@ -10,7 +10,7 @@ import crowd.input
 
 class Game(object):
 
-    def __init__(self, upload=True):
+    def __init__(self, upload=True, music=True):
         pygame.init()
 
         self.upload = upload
@@ -31,8 +31,9 @@ class Game(object):
 
         pygame.display.set_caption(crowd.constants.GAME_NAME)
 
-        music = crowd.resource.music.main
-        pygame.mixer.music.play(-1)
+        if music:
+            music = crowd.resource.music.main
+            pygame.mixer.music.play(-1)
 
 
     def loop(self):
