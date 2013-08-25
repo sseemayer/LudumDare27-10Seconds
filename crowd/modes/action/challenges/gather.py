@@ -70,21 +70,27 @@ class CoinComponent(ec.Component):
         self.gather_distance = gather_distance
         self.register_handler(self.update)
 
+        self.the_player = None
+
     def update(self, component, entity, event, time_elapsed):
 
         position = entity.handle('get_position')
 
-        for player in entity.challenge.player_entities:
-            owner = player.handle('get_owner')
+        if not self.the_player:
+            for player in entity.challenge.player_entities:
+                owner = player.handle('get_owner')
 
-            if owner.input_source.is_live:
-                plr_position = player.handle('get_position')
+                if owner.input_source.is_live:
+                    self.the_player = player
 
-                delta = (position - plr_position).length
 
-                if delta < self.gather_distance:
+        plr_position = self.the_player.handle('get_position')
 
-                    crowd.resource.sound.coin.play()
-                    entity.challenge.entities.remove(entity)
-                    entity.challenge.mode.game.score += crowd.constants.GATHER_SCORE
+        delta = (position - plr_position).length
+
+        if delta < self.gather_distance:
+
+            crowd.resource.sound.coin.play()
+            entity.challenge.entities.remove(entity)
+            entity.challenge.mode.game.score += crowd.constants.GATHER_SCORE
 
