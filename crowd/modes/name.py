@@ -38,7 +38,7 @@ class NameEnterMode(crowd.modes.GameMode):
 
     def update(self, time_elapsed):
 
-        valid_keys = [ord(c) for c in 'abcdefghijklmnopqrstuvwxyz_.!#@/']
+        valid_keys = [ord(c) for c in 'abcdefghijklmnopqrstuvwxyz_.']
         full_keys = self.game.input.full_keys.copy()
 
         new_presses = set(k for k, v in full_keys.items() if v != self.last_keys[k] and v)
