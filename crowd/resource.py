@@ -23,9 +23,17 @@ class ResourceManager(object):
         else:
             raise AttributeError("I don't know resource {0}!".format(name))
 
+def load_sound(n, sounddef):
+
+    fn, volume = sounddef
+    snd = pygame.mixer.Sound(fn)
+    snd.set_volume(volume)
+
+    return snd
+
 
 image = ResourceManager(crowd.constants.RES_IMAGES, lambda n, fn: pygame.image.load(fn))
 music = ResourceManager(crowd.constants.RES_MUSIC, lambda n, fn: pygame.mixer.music.load(fn))
-sound = ResourceManager(crowd.constants.RES_SOUNDS, lambda n, fn: pygame.mixer.Sound(fn))
+sound = ResourceManager(crowd.constants.RES_SOUNDS, load_sound)
 font  = ResourceManager(crowd.constants.RES_FONTS, lambda n, fontdef: pygame.font.Font(*fontdef))
 

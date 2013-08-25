@@ -55,7 +55,10 @@ RES_MUSIC = {
 }
 
 RES_SOUNDS = {
-
+    'coin': ('data/audio/coin.wav', 0.5),
+    'explosion': ('data/audio/explosion.wav', 0.7),
+    'jump': ('data/audio/jump.wav', 0.2),
+    'select': ('data/audio/select.wav', 0.6),
 }
 
 RES_FONTS = {

@@ -67,15 +67,18 @@ class MenuMode(crowd.modes.GameMode):
         update = {k: v for k, v in input.items() if self.last_input[k] != v and v}
 
         if 'down' in update:
+            crowd.resource.sound.select.play()
             self.menu_sel += 1
 
         if 'up' in update:
+            crowd.resource.sound.select.play()
             self.menu_sel -= 1
 
         self.menu_sel = (self.menu_sel + len(self.menu_options)) % len(self.menu_options)
 
 
         if 'a' in update:
+            crowd.resource.sound.coin.play()
             self.menu_options[self.menu_sel][1]()
 
 

@@ -163,7 +163,9 @@ class GravityJump(ec.Component):
                     break
 
         if on_platform and owner.input.up:
+            crowd.resource.sound.jump.play()
             velocity.y = -crowd.constants.JUMP_STRENGTH
+
 
 
         entity.handle('set_velocity', velocity)

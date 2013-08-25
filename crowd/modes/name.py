@@ -53,12 +53,15 @@ class NameEnterMode(crowd.modes.GameMode):
 
                 if len(self.game.player_name) < 15:
                     self.game.player_name += c
+                    crowd.resource.sound.select.play()
 
         if full_keys[K_BACKSPACE]:
             self.game.player_name = self.game.player_name[:-1]
+            crowd.resource.sound.select.play()
 
         if full_keys[K_RETURN] and len(self.game.player_name) >= 3 and len(self.game.player_name) <= 15:
             if self.on_finish:
+                crowd.resource.sound.coin.play()
                 self.on_finish()
 
         self.last_keys = full_keys

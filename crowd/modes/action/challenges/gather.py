@@ -83,6 +83,8 @@ class CoinComponent(ec.Component):
                 delta = (position - plr_position).length
 
                 if delta < self.gather_distance:
+
+                    crowd.resource.sound.coin.play()
                     entity.challenge.entities.remove(entity)
                     entity.challenge.mode.game.score += crowd.constants.GATHER_SCORE
 

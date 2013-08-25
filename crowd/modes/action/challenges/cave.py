@@ -122,6 +122,9 @@ class Flyer(ec.Component):
         for poly in self.polys:
             if poly.contains_point(newpos):
 
+
+                crowd.resource.sound.explosion.play()
+
                 entity.challenge.entities.remove(entity)
 
                 owner = entity.handle('get_owner')
