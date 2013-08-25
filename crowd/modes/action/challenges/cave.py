@@ -121,7 +121,12 @@ class Flyer(ec.Component):
 
         for poly in self.polys:
             if poly.contains_point(newpos):
-                entity.challenge.countdown = 0
+
+                entity.challenge.entities.remove(entity)
+
+                owner = entity.handle('get_owner')
+                if owner.input_source.is_live:
+                    entity.challenge.countdown = 0
 
 
 
