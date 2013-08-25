@@ -18,7 +18,10 @@ class NameEnterMode(crowd.modes.GameMode):
     def __init__(self, game):
         super(NameEnterMode, self).__init__(game)
 
+
         self.game.player_name = ''
+        self.game.score = 0
+
         self.last_keys = collections.defaultdict(bool)
 
         self.prompt_font = crowd.resource.font.menu
