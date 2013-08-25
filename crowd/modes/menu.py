@@ -1,4 +1,5 @@
 import crowd.modes
+import crowd.modes.dialog
 import crowd.resource
 import crowd.input
 
@@ -23,11 +24,22 @@ class MenuMode(crowd.modes.GameMode):
 
         self.last_input = game.input.keys
 
+        def back_to_menu():
+            self.game.mode = self
+
         def start_game():
 
-
             def finish_game():
-                self.game.mode = self
+                self.game.mode = crowd.modes.dialog.DialogMode(self.game, "Game Over", [
+                    'you have scored a total of',
+                    '{0} points'.format(self.game.score),
+                    '',
+                    'congratulations!',
+                    '',
+                    'press ENTER for main menu'
+                ])
+
+                self.game.mode.on_finish = back_to_menu
 
             def finish_name():
                 import crowd.modes.action
@@ -46,7 +58,20 @@ class MenuMode(crowd.modes.GameMode):
             pass
 
         def manual():
-            pass
+
+            self.game.mode = crowd.modes.dialog.DialogMode(self.game, "Manual", [
+                "Crowd is controlled using",
+                "the arrow keys.",
+                "",
+                "Other than that, the intro",
+                "texts to the challenges give",
+                "helpful hints.",
+                "",
+                "",
+                "Press RETURN for main menu"
+            ])
+
+            self.game.mode.on_finish = back_to_menu
 
         def quit():
             sys.exit(0)

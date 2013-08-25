@@ -15,4 +15,3 @@ from crowd.modes.action.challenges.shooter import ShooterChallenge
 from crowd.modes.action.base import ActionMode
 
 AVAILABLE_CHALLENGES = [RainbowChallenge, ShooterChallenge, CaveChallenge, RaceChallenge, JumpChallenge, GatherChallenge]
-
