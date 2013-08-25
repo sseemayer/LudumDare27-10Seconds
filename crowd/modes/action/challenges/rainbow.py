@@ -76,8 +76,11 @@ class TakeColor(ec.Component):
     def update(self, component, entity, event, time_elapsed):
 
         owner = entity.handle('get_owner')
+        owner.input_source.color = (0, 0, 0)
 
         if owner.input_source.is_live:
+
+            owner.input_source.color = (255, 255, 255)
 
             pos = entity.handle('get_position')
 
@@ -88,5 +91,5 @@ class TakeColor(ec.Component):
             if rainbow_pos.x >= 0 and rainbow_pos.x <= entity.challenge.rainbow_size.x and rainbow_pos.y >= 0 and rainbow_pos.y <= entity.challenge.rainbow_size.y:
 
                 rainbow_color = entity.challenge.rainbow.get_at((int(rainbow_pos.x), int(rainbow_pos.y)))
-                entity.challenge.mode.game.player_color = rainbow_color
+                entity.challenge.mode.game.player_color = (rainbow_color[0], rainbow_color[1], rainbow_color[2])
 

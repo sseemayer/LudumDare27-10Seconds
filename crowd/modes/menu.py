@@ -25,13 +25,22 @@ class MenuMode(crowd.modes.GameMode):
 
         def start_game():
 
-            import crowd.modes.action
-            self.game.mode = crowd.modes.action.ActionMode(game, [(c,) for c in crowd.modes.action.AVAILABLE_CHALLENGES])
 
-            def finish():
+            def finish_game():
                 self.game.mode = self
 
-            self.game.mode.on_finish = finish
+            def finish_name():
+                import crowd.modes.action
+                self.game.mode = crowd.modes.action.ActionMode(game, [(c,) for c in crowd.modes.action.AVAILABLE_CHALLENGES])
+                self.game.mode.on_finish = finish_game
+
+
+            #self.game.mode.on_finish = finish
+
+            import crowd.modes.name
+            self.game.mode = crowd.modes.name.NameEnterMode(self.game)
+
+            self.game.mode.on_finish = finish_name
 
         def highscores():
             pass

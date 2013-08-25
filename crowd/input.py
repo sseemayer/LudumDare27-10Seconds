@@ -13,17 +13,24 @@ class Input(object):
 
         self.keys = {k: False for k in crowd.constants.VALID_ACTIONS}
 
+        self.full_keys = collections.defaultdict(bool)
+
     def handle_events(self):
 
         for event in pygame.event.get():
             if event.type == QUIT or (event.type == KEYDOWN and event.key == K_ESCAPE):
                 self.game.running = False
 
-            elif event.type == KEYDOWN and event.key in self.keymap:
-                self.keys[self.keymap[event.key]] = True
+            elif event.type == KEYDOWN:
+                self.full_keys[event.key] = True
+                if event.key in self.keymap:
+                    self.keys[self.keymap[event.key]] = True
 
-            elif event.type == KEYUP and event.key in self.keymap:
-                self.keys[self.keymap[event.key]] = False
+            elif event.type == KEYUP:
+                self.full_keys[event.key] = False
+                if event.key in self.keymap:
+                    self.keys[self.keymap[event.key]] = False
+
 
     @property
     def state(self):
