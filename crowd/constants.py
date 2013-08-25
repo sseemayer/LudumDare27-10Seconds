@@ -5,6 +5,8 @@ GAME_NAME = 'Crowd'
 SCREEN_SIZE = (640, 480)
 TARGET_FPS = 30
 
+MODAL_PADDING = 20
+
 NOMODE_BACKGROUND = (0, 0, 128)
 
 URL_BASE = 'http://localhost:5000/'

@@ -12,6 +12,7 @@ import pygame
 
 class JumpChallenge(am.Challenge):
     name = 'jump'
+    modal_msg = 'Up, up and away!'
 
     def __init__(self, mode, input_sources):
         super(JumpChallenge, self).__init__(mode, input_sources)
@@ -74,19 +75,23 @@ class JumpChallenge(am.Challenge):
     def update(self, time_elapsed):
         super(JumpChallenge, self).update(time_elapsed)
 
-        for player in self.players:
-            player.next_frame()
+        if not self.modal:
+            for player in self.players:
+                player.next_frame()
 
-        for entity in self.entities:
-            entity.update(time_elapsed)
+            for entity in self.entities:
+                entity.update(time_elapsed)
 
     def render(self):
-        super(JumpChallenge, self).render()
 
         pygame.draw.rect(self.mode.game.screen, (32, 32, 32), ((0, -self.camera.y ), crowd.constants.SCREEN_SIZE))
 
         for entity in self.entities:
             entity.render()
+
+
+        super(JumpChallenge, self).render()
+
 
 class Platform(ec.Component):
     def __init__(self, width):

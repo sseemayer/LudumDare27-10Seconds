@@ -66,6 +66,9 @@ class ActionMode(crowd.modes.GameMode):
             self.challenge.update(time_elapsed)
 
     def render(self):
+
+        self.game.screen.fill((0,0,0))
+
         if self.challenge:
             self.challenge.render()
 

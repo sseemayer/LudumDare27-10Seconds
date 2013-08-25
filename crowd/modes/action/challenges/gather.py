@@ -7,6 +7,7 @@ import py2d.Math
 
 class GatherChallenge(am.Challenge):
     name = 'gather'
+    modal_msg = 'Grab all you can!'
 
     def __init__(self, mode, input_sources):
         super(GatherChallenge, self).__init__(mode, input_sources)
@@ -48,6 +49,8 @@ class GatherChallenge(am.Challenge):
     def update(self, time_elapsed):
         super(GatherChallenge, self).update(time_elapsed)
 
+        if self.modal: return
+
         for player in self.players:
             player.next_frame()
 
@@ -55,11 +58,13 @@ class GatherChallenge(am.Challenge):
             entity.update(time_elapsed)
 
     def render(self):
-        super(GatherChallenge, self).render()
-
 
         for entity in self.entities:
             entity.render()
+
+        super(GatherChallenge, self).render()
+
+
 
 
 class CoinComponent(ec.Component):

@@ -15,11 +15,10 @@ import pygame
 
 class RaceChallenge(am.Challenge):
     name = 'race'
+    modal_msg = 'Ready, set, go!'
 
     def __init__(self, mode, input_sources):
         super(RaceChallenge, self).__init__(mode, input_sources)
-
-
 
         transform = py2d.Math.Transform.scale(crowd.constants.RACE_TRACK_SCALING, crowd.constants.RACE_TRACK_SCALING)
         self.racetrack_coords = py2d.SVG.convert_svg('data/images/racetrack.svg', transform, bezier_max_divisions=3)
@@ -70,6 +69,8 @@ class RaceChallenge(am.Challenge):
     def update(self, time_elapsed):
         super(RaceChallenge, self).update(time_elapsed)
 
+        if self.modal: return
+
         for player in self.players:
             player.next_frame()
 
@@ -80,10 +81,12 @@ class RaceChallenge(am.Challenge):
         self.camera = py2d.Math.Vector(*crowd.constants.SCREEN_SIZE) / -2 + self.player_entities[-1].handle('get_position')
 
     def render(self):
-        super(RaceChallenge, self).render()
 
         for entity in self.entities:
             entity.render()
+
+        super(RaceChallenge, self).render()
+
 
 
 class Racer(ec.Component):
