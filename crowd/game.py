@@ -4,6 +4,7 @@ import sys
 import pygame
 from pygame.locals import *
 
+import crowd.resource
 import crowd.constants
 import crowd.input
 
@@ -29,6 +30,9 @@ class Game(object):
         self.score = 0
 
         pygame.display.set_caption(crowd.constants.GAME_NAME)
+
+        music = crowd.resource.music.main
+        pygame.mixer.music.play(-1)
 
 
     def loop(self):

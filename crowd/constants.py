@@ -51,7 +51,7 @@ RES_IMAGES = {
 
 
 RES_MUSIC = {
-
+    'main': 'data/audio/drumloop.ogg'
 }
 
 RES_SOUNDS = {
