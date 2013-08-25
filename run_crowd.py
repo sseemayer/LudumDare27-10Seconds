@@ -12,22 +12,11 @@ if __name__ == '__main__':
 
     game = crowd.Game(upload=opt.upload)
 
-    import crowd.modes.action.challenges.cave
-    import crowd.modes.action.challenges.race
-    import crowd.modes.action.challenges.jump
-    import crowd.modes.action.challenges.gather
+    #import crowd.modes.action
+    #game.mode = crowd.modes.action.ActionMode(game, [(c,) for c in crowd.modes.action.AVAILABLE_CHALLENGES])
 
-    challenges = [
-        (crowd.modes.action.challenges.cave.CaveChallenge,),
-        (crowd.modes.action.challenges.race.RaceChallenge,),
-        (crowd.modes.action.challenges.jump.JumpChallenge,),
-        (crowd.modes.action.challenges.gather.GatherChallenge,)
-    ]
+    import crowd.modes.menu
+    game.mode = crowd.modes.menu.MenuMode(game)
 
-    game.mode = crowd.modes.action.ActionMode(game, challenges)
-
-    #import crowd.modes.menu
-    #game.mode = crowd.modes.menu.MenuMode(game)
     game.mode.on_finish = lambda: sys.exit()
-
     game.loop()

@@ -25,7 +25,10 @@ KEY_MAPPING = {
     pgl.K_c: 'b',
 
     pgl.K_j: 'a',   # Dvorak support
-    pgl.K_k: 'b'    # Dvorak support
+    pgl.K_k: 'b',   # Dvorak support
+
+    pgl.K_RETURN: 'a',
+    pgl.K_SPACE: 'a'
 }
 
 
@@ -50,7 +53,8 @@ RES_SOUNDS = {
 RES_FONTS = {
     'default': ('data/fonts/Audiowide-Regular.ttf', 12),
     'big_gui': ('data/fonts/PressStart2P-Regular.ttf', 72),
-    'med_gui': ('data/fonts/PressStart2P-Regular.ttf', 36)
+    'med_gui': ('data/fonts/PressStart2P-Regular.ttf', 36),
+    'menu': ('data/fonts/ProggySmall.ttf', 48)
 }
 
 
