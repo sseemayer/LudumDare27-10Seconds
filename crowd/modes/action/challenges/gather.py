@@ -58,14 +58,10 @@ class GatherChallenge(am.Challenge):
             entity.update(time_elapsed)
 
     def render(self):
-
         for entity in self.entities:
             entity.render()
 
         super(GatherChallenge, self).render()
-
-
-
 
 class CoinComponent(ec.Component):
     def __init__(self, gather_distance = crowd.constants.GATHER_DISTANCE):
