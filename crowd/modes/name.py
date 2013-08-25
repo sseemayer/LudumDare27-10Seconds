@@ -51,12 +51,13 @@ class NameEnterMode(crowd.modes.GameMode):
                 if full_keys[pygame.K_LSHIFT] or full_keys[K_RSHIFT]:
                     c = c.upper()
 
-                self.game.player_name += c
+                if len(self.game.player_name) < 15:
+                    self.game.player_name += c
 
         if full_keys[K_BACKSPACE]:
             self.game.player_name = self.game.player_name[:-1]
 
-        if full_keys[K_RETURN] and len(self.game.player_name) >= 3:
+        if full_keys[K_RETURN] and len(self.game.player_name) >= 3 and len(self.game.player_name) <= 15:
             if self.on_finish:
                 self.on_finish()
 
