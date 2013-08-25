@@ -19,6 +19,7 @@ class Challenge(object):
 
         self.countdown = 10000
         self.countdown_font = crowd.resource.font.big_gui
+        self.score_font = crowd.resource.font.med_gui
 
     def update(self, time_elapsed):
 
@@ -37,11 +38,13 @@ class Challenge(object):
             self.modal.render()
         else:
             countdown = self.countdown_font.render( "{0:.1f}".format(self.countdown / 1000.0), True, (64, 64, 64))
+            score = self.score_font.render( "{0:d}".format(self.mode.game.score), True, (64, 64, 64))
 
             size = py2d.Math.Vector(*countdown.get_size())
             screen = py2d.Math.Vector(*crowd.constants.SCREEN_SIZE)
 
             self.mode.game.screen.blit(countdown, (screen - size).as_tuple())
+            self.mode.game.screen.blit(score, (0, screen.y - score.get_size()[1]))
 
 
     def countdown_expired(self):
