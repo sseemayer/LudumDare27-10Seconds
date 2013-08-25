@@ -30,7 +30,7 @@
      inkscape:document-units="px"
      inkscape:current-layer="layer1"
      showgrid="false"
-     inkscape:window-width="958"
+     inkscape:window-width="1918"
      inkscape:window-height="1060"
      inkscape:window-x="0"
      inkscape:window-y="18"
@@ -49,7 +49,7 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title />
+        <dc:title></dc:title>
       </cc:Work>
     </rdf:RDF>
   </metadata>
@@ -74,7 +74,10 @@
        y="294.50504" />
     <g
        id="g3944"
-       transform="translate(45.410713,0)">
+       transform="translate(45.410713,0)"
+       inkscape:export-filename="/home/seemayer/Projects/Python/LudumDare-27/ld27/data/images/logo.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90">
       <g
          id="g3922">
         <g

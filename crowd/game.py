@@ -25,7 +25,7 @@ class Game(object):
         self.total_time = 0
 
         self.player_name = 'semi'
-        self.player_color = (255, 128, 0)
+        self.player_color = (255, 255, 255)
         self.score = 0
 
         pygame.display.set_caption(crowd.constants.GAME_NAME)

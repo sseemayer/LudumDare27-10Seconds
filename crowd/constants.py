@@ -10,6 +10,7 @@ MODAL_PADDING = 20
 NOMODE_BACKGROUND = (0, 0, 128)
 
 URL_BASE = 'http://localhost:5000/'
+URL_HIGHSCORES   = URL_BASE + 'highscores'
 URL_REPLAYS_GET  = URL_BASE + 'replays/{challenge}'
 URL_REPLAYS_POST = URL_BASE + 'replays'
 
@@ -20,6 +21,11 @@ KEY_MAPPING = {
     pgl.K_RIGHT: 'right',
     pgl.K_DOWN: 'down',
     pgl.K_LEFT: 'left',
+
+    pgl.K_w: 'up',
+    pgl.K_d: 'right',
+    pgl.K_s: 'down',
+    pgl.K_a: 'left',
 
     pgl.K_x: 'a',
     pgl.K_c: 'b',
@@ -37,7 +43,9 @@ RES_IMAGES = {
 
     'cursor': 'data/images/cursor.png',
     'pointer': 'data/images/pointer.png',
-    'coin': 'data/images/coin.png'
+    'coin': 'data/images/coin.png',
+
+    'rainbow': 'data/images/rainbow.png'
 
 }
 
