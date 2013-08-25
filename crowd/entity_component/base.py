@@ -32,7 +32,7 @@ class Entity(object):
         for component in self.components:
             ret = component.handle(self, event, *extra_args)
 
-            if ret:
+            if ret != None:
                 return ret
 
     def update(self, time_elapsed):
@@ -41,6 +41,8 @@ class Entity(object):
     def render(self):
         self.handle('render')
 
+    def __repr__(self):
+        return '<Entity components=[{0}]>'.format( ", ".join( c.__repr__() for c in self.components) )
 
 
 class Component(object):
@@ -51,7 +53,7 @@ class Component(object):
     def handle(self, entity, event, *extra_args):
         for handler in self.handlers[event]:
             ret = handler(self, entity, event, *extra_args)
-            if ret:
+            if ret != None:
                 return ret
 
     def register_handler(self, handler, name=None):

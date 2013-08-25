@@ -29,6 +29,7 @@ KEY_MAPPING = {
 
 RES_IMAGES = {
     'cursor': 'data/images/cursor.png',
+    'pointer': 'data/images/pointer.png',
     'coin': 'data/images/coin.png'
 
 }
@@ -67,3 +68,9 @@ JUMP_PLATFORMS_PER_PHASE = 10
 JUMP_PLATFORM_AMPLITUDE = 300
 JUMP_PLATFORM_STEP = 30
 JUMP_PLATFORM_WIDTH = 60
+
+
+RACE_TRACK_SCALING = 6
+RACE_TRACK_WIDTH = 200
+RACE_PLAYER_SPEED = 10
+RACE_PLAYER_TURN_SPEED = 0.1

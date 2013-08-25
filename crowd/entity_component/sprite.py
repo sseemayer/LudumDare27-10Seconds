@@ -1,7 +1,11 @@
 from crowd.entity_component.base import Component
 import crowd.resource
 
+import math
+
+import pygame
 from pygame.locals import *
+
 import py2d.Math
 
 class Sprite(Component):
@@ -23,18 +27,22 @@ class Sprite(Component):
 
     def render(self, component, entity, event):
 
-        size = py2d.Math.Vector(*self.sprite.get_size())
-
         position = entity.handle('get_position')
+        angle = entity.handle('get_angle')
         owner = entity.handle('get_owner')
 
-        camera = entity.challenge.camera
+        sprite = self.sprite
 
+        if angle:
+            sprite = pygame.transform.rotozoom(sprite, -angle / math.pi * 180, 1.0)
+
+        size = py2d.Math.Vector(*sprite.get_size())
+
+        camera = entity.challenge.camera
         camera_pos = position - camera - size / 2
 
-        sprite = self.sprite
         if owner:
-            sprite = self.sprite.copy()
+            sprite = sprite.copy()
             sprite.fill(owner.input_source.color, special_flags=BLEND_RGB_MULT)
 
             owner_name = self.font.render(owner.input_source.player, True, owner.input_source.color)
