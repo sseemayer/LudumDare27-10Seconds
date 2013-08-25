@@ -27,7 +27,16 @@ class DialogMode(crowd.modes.GameMode):
         self.last_state = self.game.input.state.keys.copy()
 
         self.messages = messages
-        self.messages = [ self.font_message.render(msg, True, (128, 128, 128)) for msg in self.messages]
+
+        def render_message(msg):
+
+            color = (128, 128, 128)
+            if isinstance(msg, tuple):
+                msg, color = msg
+
+            return self.font_message.render(msg, True, color)
+
+        self.messages = [ render_message(msg) for msg in self.messages]
         self.message_sizes = [ py2d.Math.Vector(*msg.get_size()) for msg in self.messages]
 
         self.title = self.font_big.render(title, True, (255, 255, 255))

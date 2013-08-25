@@ -43,3 +43,27 @@ def post_challenge_replay(live_input_source):
     res = urllib2.urlopen(crowd.constants.URL_REPLAYS_POST, data)
 
     print(res.read())
+
+
+def post_highscore(game):
+
+    data = urllib.urlencode({
+        'player': game.player_name,
+        'color': color_tuple_to_hex(game.player_color),
+        'score': game.score,
+        'challenge_scores': ''
+    })
+    res = urllib2.urlopen(crowd.constants.URL_HIGHSCORES, data)
+
+    print(res.read())
+
+
+def get_highscores():
+
+    res = urllib2.urlopen(crowd.constants.URL_HIGHSCORES)
+    data = json.load(res)['highscores']
+
+    for hs in data:
+        hs['color'] = color_hex_to_tuple(hs['color'])
+
+    return data

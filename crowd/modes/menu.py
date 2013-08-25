@@ -2,6 +2,7 @@ import crowd.modes
 import crowd.modes.dialog
 import crowd.resource
 import crowd.input
+import crowd.web
 
 import collections
 
@@ -30,6 +31,9 @@ class MenuMode(crowd.modes.GameMode):
         def start_game():
 
             def finish_game():
+                if self.game.upload:
+                    crowd.web.post_highscore(self.game)
+
                 self.game.mode = crowd.modes.dialog.DialogMode(self.game, "Game Over", [
                     'you have scored a total of',
                     '{0} points'.format(self.game.score),
@@ -55,7 +59,15 @@ class MenuMode(crowd.modes.GameMode):
             self.game.mode.on_finish = finish_name
 
         def highscores():
-            pass
+            highscores = crowd.web.get_highscores()
+
+            highscores = highscores[0:5]
+            highscores = [("{0:15s} {1:6d}".format(hs['player'], hs['score']), hs['color']) for hs in highscores]
+
+            self.game.mode = crowd.modes.dialog.DialogMode(self.game, "Highscores", highscores)
+            self.game.mode.on_finish = back_to_menu
+
+
 
         def manual():
 
